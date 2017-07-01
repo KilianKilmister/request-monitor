@@ -1,11 +1,9 @@
 module.exports = MiddlewareBase => class RequestMonitor extends MiddlewareBase {
   middleware () {
-    let requestId = 1
     return async (ctx, next) => {
-      ctx.state.requestId = requestId++
       const reqInfo = {
         socketId: ctx.req.socket.id,
-        requestId: ctx.state.requestId,
+        requestId: ctx.req.requestId,
         method: ctx.req.method,
         url: ctx.req.url,
         headers: ctx.req.headers
@@ -16,7 +14,7 @@ module.exports = MiddlewareBase => class RequestMonitor extends MiddlewareBase {
       await next()
       const resInfo = {
         socketId: ctx.req.socket.id,
-        requestId: ctx.state.requestId,
+        requestId: ctx.req.requestId,
         statusCode: ctx.res.statusCode
       }
       const headers = (ctx.res.getHeaders && ctx.res.getHeaders()) || ctx.res._headers
