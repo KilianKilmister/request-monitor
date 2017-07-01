@@ -5,7 +5,7 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
 # lws-request-monitor
-Verbose request information middleware for [lws](https://github.com/lwsjs/lws).
+Verbose request logging middleware for [lws](https://github.com/lwsjs/lws).
 
 * * *
 

@@ -2,15 +2,12 @@
   "name": "lws-request-monitor",
   "author": "Lloyd Brookes <75pound@gmail.com>",
   "version": "0.0.0",
-  "description": "lws-request-monitor",
+  "description": "Verbose request logging middleware for lws",
   "repository": "https://github.com/lwsjs/request-monitor.git",
   "keywords": [
     "lws"
   ],
   "license": "MIT",
-  "engines": {
-    "node": ">=4"
-  },
   "scripts": {
     "test": "test-runner test/*.js"
   },
