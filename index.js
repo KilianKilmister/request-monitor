@@ -11,14 +11,12 @@ module.exports = MiddlewareBase => class RequestMonitor extends MiddlewareBase {
         url: ctx.req.url,
         headers: ctx.req.headers
       }
-      if (ctx.request.rawBody) reqInfo.data = ctx.request.rawBody
-      const incomingBuffer = ctx.req._readableState.buffer
-      if (!reqInfo.data && incomingBuffer.head && incomingBuffer.head.data.length) {
-        reqInfo.data = '__INCOMING__'
-        reqInfo.data[util.inspect.custom] = function (depth, options) {
-          const byteSize = require('byte-size')
-          const size = byteSize(incomingBuffer.head.data.length)
-          return options.stylize(`[ incoming data (${size} so far) ]`, 'special')
+      if (ctx.request.rawBody) {
+        reqInfo.body = ctx.request.body
+      } else {
+        const incomingBuffer = ctx.req._readableState.buffer
+        if (incomingBuffer.head && incomingBuffer.head.data.length) {
+          reqInfo.bodyHead = incomingBuffer.head.data.toString('utf8', 0, 1000)
         }
       }
       this.emit('verbose', 'server.request', reqInfo)
@@ -32,12 +30,22 @@ module.exports = MiddlewareBase => class RequestMonitor extends MiddlewareBase {
       }
       const headers = (ctx.res.getHeaders && ctx.res.getHeaders()) || ctx.res._headers
       if (headers) resInfo.headers = headers
-      if (ctx.body) resInfo.data = ctx.body
+      if (ctx.body) resInfo.body = ctx.body
 
       const stream = require('stream')
-      if (resInfo.data instanceof stream.Readable) {
-        resInfo.data[util.inspect.custom] = function (depth, options) {
-          return options.stylize(`[ Readable Stream: ${resInfo.data.path} ]`, 'special')
+      if (resInfo.body instanceof stream.Readable) {
+        if (/text\/event-stream/.test(ctx.response.type)) {
+          resInfo.body[util.inspect.custom] = function (depth, options) {
+            return options.stylize('[ SSE event-stream ]', 'special')
+          }
+        } else if (ctx.body.path) {
+          resInfo.body[util.inspect.custom] = function (depth, options) {
+            return options.stylize(`[ ReadStream: ${ctx.body.path} ]`, 'special')
+          }
+        } else {
+          resInfo.body[util.inspect.custom] = function (depth, options) {
+            return options.stylize(`[ Readable Stream ]`, 'special')
+          }
         }
       }
       this.emit('verbose', 'server.response', resInfo)
