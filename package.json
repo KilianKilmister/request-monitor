@@ -12,12 +12,12 @@
     "test": "test-runner test.js"
   },
   "devDependencies": {
-    "lws": "^1.0.0-pre2.7",
+    "lws": "^1.0.0-pre3.1",
     "req-then": "^0.6.4",
     "test-runner": "^0.4.0",
     "test-runner-counter": "^0.1.1"
   },
   "dependencies": {
-    "byte-size": "^4.0.1"
+    "byte-size": "^4.0.2"
   }
 }

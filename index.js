@@ -1,4 +1,7 @@
 module.exports = MiddlewareBase => class RequestMonitor extends MiddlewareBase {
+  description () {
+    return 'Feeds traffic information to --verbose output.'
+  }
   middleware () {
     return async (ctx, next) => {
       const util = require('util')
