@@ -1,6 +1,6 @@
 module.exports = MiddlewareBase => class RequestMonitor extends MiddlewareBase {
   description () {
-    return 'Feeds traffic information to --verbose output.'
+    return 'Feeds traffic information to the `--verbose` output.'
   }
   middleware () {
     return async (ctx, next) => {

@@ -15,7 +15,7 @@ runner.test('simple', async function () {
     if (key === 'server.request') counter.pass()
     if (key === 'server.response') counter.pass()
   })
-  const server = lws.create({ port, stack: RequestMonitor })
+  const server = lws.listen({ port, stack: RequestMonitor })
   const response = await request(`http://localhost:${port}/`)
   server.close()
   return counter.promise
