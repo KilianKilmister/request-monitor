@@ -15,7 +15,11 @@ module.exports = MiddlewareBase => class RequestMonitor extends MiddlewareBase {
         headers: ctx.req.headers
       }
       if (ctx.request.rawBody) {
-        reqInfo.body = ctx.request.body
+        if (Object.keys(ctx.request.body).length) {
+          reqInfo.body = ctx.request.body
+        } else {
+          reqInfo.body = ctx.request.rawBody
+        }
       } else {
         const incomingBuffer = ctx.req._readableState.buffer
         if (incomingBuffer.head && incomingBuffer.head.data.length) {
@@ -34,6 +38,12 @@ module.exports = MiddlewareBase => class RequestMonitor extends MiddlewareBase {
       const headers = (ctx.res.getHeaders && ctx.res.getHeaders()) || ctx.res._headers
       if (headers) resInfo.headers = headers
       if (ctx.body) resInfo.body = ctx.body
+
+      if (ctx.response.is('json')) {
+        try {
+          resInfo.body = JSON.parse(resInfo.body)
+        } catch (err) {}
+      }
 
       const stream = require('stream')
       if (resInfo.body instanceof stream.Readable) {
