@@ -1,7 +1,8 @@
-module.exports = MiddlewareBase => class RequestMonitor extends MiddlewareBase {
+class RequestMonitor {
   description () {
     return 'Feeds traffic information to the `--verbose` output.'
   }
+
   middleware () {
     return async (ctx, next) => {
       const util = require('util')
@@ -14,6 +15,7 @@ module.exports = MiddlewareBase => class RequestMonitor extends MiddlewareBase {
         url: ctx.req.url,
         headers: ctx.req.headers
       }
+      // console.log(ctx.request)
       if (ctx.request.rawBody) {
         if (Object.keys(ctx.request.body).length) {
           reqInfo.body = ctx.request.body
@@ -26,7 +28,7 @@ module.exports = MiddlewareBase => class RequestMonitor extends MiddlewareBase {
           reqInfo.bodyHead = incomingBuffer.head.data.toString('utf8', 0, 1000)
         }
       }
-      this.emit('verbose', 'server.request', reqInfo)
+      ctx.app.emit('verbose', 'server.request', reqInfo)
 
       /* next, inspect the response */
       await next()
@@ -61,7 +63,9 @@ module.exports = MiddlewareBase => class RequestMonitor extends MiddlewareBase {
           }
         }
       }
-      this.emit('verbose', 'server.response', resInfo)
+      ctx.app.emit('verbose', 'server.response', resInfo)
     }
   }
 }
+
+module.exports = RequestMonitor
