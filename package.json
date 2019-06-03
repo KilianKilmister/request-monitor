@@ -8,12 +8,16 @@
     "lws"
   ],
   "license": "MIT",
+  "engines": {
+    "node": ">=8"
+  },
   "scripts": {
-    "test": "test-runner test.js"
+    "test": "test-runner test.js",
+    "cover": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "devDependencies": {
-    "lws": "^2.0.0-5",
-    "lws-body-parser": "^1.0.0",
+    "lws": "^2.0.0-7",
+    "lws-body-parser": "^1.0.1",
     "node-fetch": "^2.6.0",
     "nyc": "^14.1.1",
     "test-runner": "^0.6.0"
