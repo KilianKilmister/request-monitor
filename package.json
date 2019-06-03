@@ -16,6 +16,7 @@
     "cover": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "devDependencies": {
+    "coveralls": "^3.0.3",
     "lws": "^2.0.0-7",
     "lws-body-parser": "^1.0.1",
     "node-fetch": "^2.6.0",
