@@ -3,19 +3,23 @@ class RequestMonitor {
     return 'Feeds traffic information to the `--verbose` output.'
   }
 
-  middleware () {
+  middleware (config, lws) {
+    let requestId = 1
+    lws.server.on('request', (req, res) => {
+      req.requestId = requestId++
+    })
+
     return async (ctx, next) => {
       const util = require('util')
 
       /* first, inspect the request */
       const reqInfo = {
-        socketId: ctx.req.socket.id,
         requestId: ctx.req.requestId,
         method: ctx.req.method,
         url: ctx.req.url,
         headers: ctx.req.headers
       }
-      // console.log(ctx.request)
+
       if (ctx.request.rawBody) {
         if (Object.keys(ctx.request.body).length) {
           reqInfo.body = ctx.request.body
@@ -33,7 +37,6 @@ class RequestMonitor {
       /* next, inspect the response */
       await next()
       const resInfo = {
-        socketId: ctx.req.socket.id,
         requestId: ctx.req.requestId,
         statusCode: ctx.res.statusCode
       }
