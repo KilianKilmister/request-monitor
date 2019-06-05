@@ -7,7 +7,44 @@
 
 # lws-request-monitor
 
-Verbose request logging middleware for [lws](https://github.com/lwsjs/lws).
+Adds request and response logging to [lws](https://github.com/lwsjs/lws) verbose output.
+
+Example command: 
+
+```
+$ lws request-monitor static index --verbose
+```
+
+Example verbose output:
+
+
+```js
+{
+  'server.request': {
+    requestId: 1,
+    method: 'GET',
+    url: '/package-lock',
+    headers: {
+      host: '192.168.0.200:8000',
+      'user-agent': 'curl/7.65.0',
+      accept: '*/*'
+    }
+  }
+}
+{
+  'server.response': {
+    requestId: 1,
+    statusCode: 200,
+    headers: [Object: null prototype] {
+      'content-length': '27212',
+      'last-modified': 'Wed, 05 Jun 2019 11:59:01 GMT',
+      'cache-control': 'max-age=0',
+      'content-type': 'application/json; charset=utf-8'
+    },
+    body: [ ReadStream: /Users/lloyd/Documents/lwsjs/examples/static-index/package-lock.json ]
+  }
+}
+```
 
 * * *
 
