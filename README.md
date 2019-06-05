@@ -12,7 +12,7 @@ Adds request and response logging to [lws](https://github.com/lwsjs/lws) verbose
 Example command: 
 
 ```
-$ lws request-monitor static index --verbose
+$ lws --stack request-monitor static index --verbose
 ```
 
 Example verbose output:
