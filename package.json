@@ -5,7 +5,8 @@
   "description": "Adds request and response logging to lws verbose output",
   "repository": "https://github.com/lwsjs/request-monitor.git",
   "keywords": [
-    "lws"
+    "lws",
+    "lws-middleware"
   ],
   "license": "MIT",
   "engines": {
@@ -16,9 +17,9 @@
     "cover": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "devDependencies": {
-    "coveralls": "^3.0.3",
-    "lws": "^2.0.0-9",
-    "lws-body-parser": "^1.0.1",
+    "coveralls": "^3.0.4",
+    "lws": "^2.0.0",
+    "lws-body-parser": "^1.0.2",
     "node-fetch": "^2.6.0",
     "nyc": "^14.1.1",
     "test-runner": "^0.6.0"
