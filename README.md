@@ -9,7 +9,7 @@
 
 Adds request and response logging to [lws](https://github.com/lwsjs/lws) verbose output.
 
-Example command: 
+Example command:
 
 ```
 $ lws --stack request-monitor static index --verbose
@@ -48,4 +48,4 @@ Example verbose output:
 
 * * *
 
-&copy; 2017-19 Lloyd Brookes \<75pound@gmail.com\>.
+&copy; 2017-20 Lloyd Brookes \<75pound@gmail.com\>.

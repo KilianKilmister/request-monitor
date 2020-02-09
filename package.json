@@ -10,22 +10,22 @@
   ],
   "license": "MIT",
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "scripts": {
     "test": "test-runner test.js",
     "cover": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "devDependencies": {
-    "coveralls": "^3.0.4",
-    "lws": "^2.0.0",
-    "lws-body-parser": "^1.0.2",
+    "coveralls": "^3.0.9",
+    "lws": "^2.0.8",
+    "lws-body-parser": "^2.0.0",
     "node-fetch": "^2.6.0",
-    "nyc": "^14.1.1",
-    "test-runner": "^0.6.0"
+    "nyc": "^15.0.0",
+    "test-runner": "^0.8.13"
   },
   "dependencies": {
-    "byte-size": "^5.0.1"
+    "byte-size": "^6.2.0"
   },
   "files": [
     "index.js"

@@ -2,7 +2,7 @@ const Tom = require('test-runner').Tom
 const RequestMonitor = require('./')
 const Lws = require('lws')
 const fetch = require('node-fetch')
-const a = require('assert')
+const a = require('assert').strict
 const LwsBodyParser = require('lws-body-parser')
 
 const tom = module.exports = new Tom('request-monitor')
@@ -18,7 +18,7 @@ tom.test('GET', async function () {
   })
   const response = await fetch(`http://localhost:${port}/`)
   lws.server.close()
-  a.deepStrictEqual(actuals, [ 'server.request', 'server.response' ])
+  a.deepEqual(actuals, [ 'server.request', 'server.response' ])
 })
 
 tom.test('POST with form body', async function () {
@@ -38,7 +38,7 @@ tom.test('POST with form body', async function () {
     body: 'one=1'
   })
   lws.server.close()
-  a.deepStrictEqual(actuals, [ 'server.request', 'server.response' ])
+  a.deepEqual(actuals, [ 'server.request', 'server.response' ])
   // check the `reqInfo` emitted contains the request body
 })
 
@@ -59,5 +59,5 @@ tom.test('POST with json body', async function () {
     body: JSON.stringify({ one: 1 })
   })
   lws.server.close()
-  a.deepStrictEqual(actuals, [ 'server.request', 'server.response' ])
+  a.deepEqual(actuals, [ 'server.request', 'server.response' ])
 })
